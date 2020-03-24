@@ -30,7 +30,7 @@ export default {
     }
   },
   firebase: {
-    listofnews: textRef
+    listofnews : textRef
     
   },
   methods: {
@@ -52,14 +52,26 @@ export default {
 <style>
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
-
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  text-align: center;
   color: #2c3e50;
-  margin-top: 20px;
+  margin-top: 60px;
 }
+
+
 
 li {
   margin: 0 10px;
+}
+p {
+  margin: 0 10px;
+}
+a {
+  color: aqua;
+}
+button {
+  background-color: transparent;
+  border: 2px solid black;
 }
 </style>
