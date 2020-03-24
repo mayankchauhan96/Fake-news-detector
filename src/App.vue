@@ -1,28 +1,39 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <div>
+      <label>Enter Text:</label>
+      <input type="text" v-model="text" />
+      <button @click="submitText()">Submit</button>
+    </div>
+
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import {textRef} from './firebase';
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+
+  },
+  data(){
+    return{
+      text: "fake news"
+
+    }
+  },
+  methods: {
+    submitText(){
+      textRef.push({
+        text: this.text
+      })
+
+    }
   }
 }
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+
 </style>

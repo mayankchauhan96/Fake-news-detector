@@ -1,7 +1,9 @@
+import './firebase';
 import Vue from 'vue'
 import App from './App.vue'
+import vueFire from 'vuefire';
 
-Vue.config.productionTip = false
+Vue.use(vueFire);
 
 new Vue({
   render: h => h(App),
