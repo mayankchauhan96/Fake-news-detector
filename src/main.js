@@ -1,9 +1,9 @@
 import './firebase';
 import Vue from 'vue'
 import App from './App.vue'
-import vueFire from 'vuefire';
+import { firestorePlugin } from 'vuefire'
 
-Vue.use(vueFire);
+Vue.use(firestorePlugin)
 
 new Vue({
   render: h => h(App),
