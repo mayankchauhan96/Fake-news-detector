@@ -19,7 +19,7 @@ export default {
   },
   data(){
     return{
-      text: "fake news"
+      text: "fake news "
 
     }
   },
