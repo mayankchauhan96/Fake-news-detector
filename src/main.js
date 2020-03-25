@@ -6,5 +6,6 @@ import { firestorePlugin } from 'vuefire'
 Vue.use(firestorePlugin)
 
 new Vue({
+  e1: '#app',
   render: h => h(App),
 }).$mount('#app')

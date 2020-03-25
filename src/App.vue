@@ -1,77 +1,151 @@
 <template>
   <div id="app">
-    <div>
-      <label>Enter Text:</label>
-      <input type="text" v-model="text" />
-      <button @click="submitText()">Submit</button>
-    </div>
 
     <div>
+      <h3>Fake News Detector</h3>
+      <label>News:  </label>
+      <label> {{read}}</label>
+      <!-- <input type="text" v-model="text" /> -->
       <ul>
-        <li v-for="singlenews of listofnews"
-        v-bind:key="singlenews['.key']"> 
-          <p>{{singlenews.text}}</p>
-          <button @click="deletenews(singlenews['.key'])
-          ">Delete</button>
-         </li>
+      <button @click="markFake()">Fake news</button>
+      </ul>
+      <ul>
+      <button @click="markReal()">Real news</button>
+      </ul>
+      <ul>
+      <button @click="markIrr()">Irrelevant news</button>
+      </ul>
+      <ul>
+      <button @click="markNs()">Not Sure</button>
+      </ul>
+      <ul>
+      <button @click="markExpl()">Mark as expilicit</button>
       </ul>
     </div>
+
   </div>
 </template>
 
 <script>
-import {textRef} from './firebase';
+import {db} from './firebase';
 
 export default {
-  data(){
-    return{
-      text: ""
-
-    }
+  name: 'app',
+  data: function () {
+    return {
+      read: ''
+    };
   },
-  firebase: {
-    listofnews : textRef
-    
-  },
-  methods: {
-    submitText(){
-      textRef.push({
-        text: this.text
-      });
-      this.text = '';
-
-    },
-    deletenews(key){
-      textRef.child(key).remove();
-
-    }
+  created() {
+    db.ref('news2'['key']).once('value', storedValue => this.read = storedValue);
   }
 }
 </script>
 
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+  * {
+    box-sizing: border-box;
+  }
+  body, html {
+    margin: 10px;
+    padding: 5px;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 600;
+    color: #2F353E;
+    background-color: rgb(229, 242, 243);
+    text-align: center;
 
-
-
-li {
-  margin: 0 10px;
-}
-p {
-  margin: 0 10px;
-}
-a {
-  color: aqua;
-}
-button {
-  background-color: transparent;
-  border: 2px solid black;
-}
+  }
+  section {
+    position: relative;
+  }
+  a {
+    display: block;
+    text-decoration: none;
+    padding-top: 10px;
+    margin-top: 10px;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #EE7321;
+    
+  }
+  h1, h2, h3 {
+    margin: 0;
+    
+  }
+  h2 {
+    font-size: 2.3rem;
+  }
+  h3 {
+    margin: 10px;
+    text-align:center;
+    padding: 5px;
+    padding-bottom: 40px;
+    font-size: 1.5rem;
+    font-weight: 600;
+  }
+  .final {
+    text-align: center;
+    padding: 20% 0;
+  }
+  .final h2 {
+    font-weight: 700;
+    font-size: 1.8rem;
+  }
+  .final h3 {
+    color: #A4A7AC;
+    font-size: 1.4rem;
+    font-weight: 600;
+    
+  }
+  .final button {
+    margin-top: 20px;
+  }
+  input {
+    background-color: rgba(16, 35, 36, 0.8);
+    border: none;
+    border-radius: 4px;
+    width: 75%;
+    font-size: 1.1rem;
+    padding: 10px 22px;
+    color: #F0F0F0;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 700;
+    transition: background-color .15s ease;
+    
+  }
+  input::-webkit-input-placeholder {
+    color: rgba(133, 162, 206, 0.5);
+  }
+  input:focus {
+    background-color: #021333;
+  }
+  .pattern::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    /* background: url(assets/pattern.svg); */
+    background-size: 35%;
+    opacity: 0.1;
+    z-index: -1;
+  }
+  @media screen and (min-width: 650px) {
+    .final {
+      padding: 8% 0;
+    }
+    .pattern::before {
+      background-size: 18%;
+    }
+  }
+  .hero .logo {
+    margin-bottom: 20%;
+  }
+  @media screen and (min-width: 950px) {
+    .hero .logo {
+      margin-bottom: 10%;
+    }
+  }
 </style>
