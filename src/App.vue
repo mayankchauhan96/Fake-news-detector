@@ -3,9 +3,26 @@
 
     <div>
       <h3>Fake News Detector</h3>
-      <label>News:  </label>
-      <label> {{readnews}}</label>
-      <!-- <input type="text" v-model="text" /> -->
+      <mdb-container>
+        <mdb-row>
+          <mdb-col sm="4">
+            <mdb-card dark>
+              <mdb-view hover>
+                <a href="#!">
+                  <mdb-card-image src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20%28131%29.jpg" alt="Card image cap"></mdb-card-image>
+                  <mdb-mask flex-center waves overlay="white-slight"></mdb-mask>
+                </a>
+              </mdb-view>
+              <mdb-card-body color="elegant" class="white-text">
+                <a class="activator mr-4"><mdb-icon icon="share-alt" /></a>
+                <mdb-card-title>{{readtitle}}</mdb-card-title>
+                <hr class="hr-light"/>
+                <mdbCardText class="font-small mb-3">{{readnews}}</mdbCardText>
+              </mdb-card-body>
+            </mdb-card>
+          </mdb-col>
+        </mdb-row>
+      </mdb-container>
       <ul>
       <button @click="markFake()">Fake news</button>
       </ul>
@@ -31,10 +48,33 @@
 </template>
 
 <script>
+
 import {db} from './firebase';
+import { mdbContainer,mdbCardText, mdbCardTitle, mdbRow, mdbCol, mdbCard, mdbCardImage, mdbView, mdbMask, mdbIcon } from 'mdbvue';
 
 export default {
   name: 'app',
+
+components:{
+
+    mdbContainer,
+    mdbRow,
+    mdbCol,
+    mdbCard,
+    mdbCardImage,
+    // mdbCardHeader,
+    // mdbCardBody,
+    mdbCardTitle,
+    mdbCardText,
+    // mdbCardFooter,
+    // mdbCardUp,
+    // mdbCardAvatar,
+    // mdbCardGroup,
+    // mdbBtn,
+    mdbView,
+    mdbMask,
+    mdbIcon
+  },
 
   methods:{
     markFake() {
@@ -50,12 +90,13 @@ export default {
 
   data: function () {
     return {
+      readtitle: '',
       readnews: '',
       readstatus: ''
-
     };
   },
   created() {
+    db.ref('0/title').once('value', storedValue => this.readtitle = storedValue);
     db.ref('0/news').once('value', storedValue => this.readnews = storedValue);
     db.ref('0/status').once('value', storedValue => this.readstatus = storedValue);
 
@@ -74,7 +115,7 @@ export default {
     font-family: 'Nunito', sans-serif;
     font-weight: 600;
     color: #2F353E;
-    background-color: rgb(229, 242, 243);
+    background-color: rgb(2, 1, 1);
     text-align: center;
 
   }
@@ -170,4 +211,13 @@ export default {
       margin-bottom: 10%;
     }
   }
+  div[class^="card"],
+div[class*=" card"] {
+  /* border: 2px solid black; */
+  padding: 5px;
+  /* color:grey; */
+  background-color: rgb(255, 250, 250);
+
+
+}
 </style>
