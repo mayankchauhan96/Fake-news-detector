@@ -4,7 +4,7 @@
     <div>
       <h3>Fake News Detector</h3>
       <label>News:  </label>
-      <label> {{read}}</label>
+      <label> {{readnews}}</label>
       <!-- <input type="text" v-model="text" /> -->
       <ul>
       <button @click="markFake()">Fake news</button>
@@ -21,6 +21,10 @@
       <ul>
       <button @click="markExpl()">Mark as expilicit</button>
       </ul>
+      <label>Status:  </label>
+      
+      <label> {{readstatus}}</label>
+
     </div>
 
   </div>
@@ -31,14 +35,32 @@ import {db} from './firebase';
 
 export default {
   name: 'app',
+
+  methods:{
+    markFake() {
+      var updates = {};
+      console.log("marked fake");
+      updates['0/status'] = "fake news";
+      db.ref().update(
+        updates
+      )
+    },
+    
+  },
+
   data: function () {
     return {
-      read: ''
+      readnews: '',
+      readstatus: ''
+
     };
   },
   created() {
-    db.ref('news2'['key']).once('value', storedValue => this.read = storedValue);
-  }
+    db.ref('0/news').once('value', storedValue => this.readnews = storedValue);
+    db.ref('0/status').once('value', storedValue => this.readstatus = storedValue);
+
+  },
+  
 }
 </script>
 
