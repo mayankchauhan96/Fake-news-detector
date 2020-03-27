@@ -50,7 +50,7 @@
 <script>
 
 import {db} from './firebase';
-import { mdbContainer,mdbCardText, mdbCardTitle, mdbRow, mdbCol, mdbCard, mdbCardImage, mdbView, mdbMask, mdbIcon } from 'mdbvue';
+import { mdbContainer,mdbCardText, mdbCardTitle, mdbRow, mdbCardBody, mdbCol, mdbCard, mdbCardImage, mdbView, mdbMask, mdbIcon } from 'mdbvue';
 
 export default {
   name: 'app',
@@ -63,7 +63,7 @@ components:{
     mdbCard,
     mdbCardImage,
     // mdbCardHeader,
-    // mdbCardBody,
+    mdbCardBody,
     mdbCardTitle,
     mdbCardText,
     // mdbCardFooter,
@@ -115,7 +115,7 @@ components:{
     font-family: 'Nunito', sans-serif;
     font-weight: 600;
     color: #2F353E;
-    background-color: rgb(2, 1, 1);
+    background-color: rgb(226, 217, 217);
     text-align: center;
 
   }
@@ -165,7 +165,7 @@ components:{
     margin-top: 20px;
   }
   input {
-    background-color: rgba(16, 35, 36, 0.8);
+    background-color: rgba(215, 229, 230, 0.8);
     border: none;
     border-radius: 4px;
     width: 75%;
