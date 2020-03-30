@@ -15,7 +15,7 @@
               </mdb-view>
               <mdb-card-body color="elegant" class="white-text">
                 <a class="activator mr-4"><mdb-icon icon="share-alt" /></a>
-                <mdb-card-title>{{readtitle}}</mdb-card-title>
+                <mdb-card-title>asked by: {{readtitle}}</mdb-card-title>
                 <hr class="hr-light"/>
                 <mdbCardText class="font-small mb-3">{{readnews}}</mdbCardText>
               </mdb-card-body>
@@ -50,7 +50,7 @@
 <script>
 
 import {db} from './firebase';
-import { mdbContainer,mdbCardText, mdbCardTitle, mdbRow, mdbCardBody, mdbCol, mdbCard, mdbCardImage, mdbView, mdbMask, mdbIcon } from 'mdbvue';
+import { mdbContainer,mdbCardText,mdbCardTitle, mdbRow, mdbCardBody, mdbCol, mdbCard, mdbCardImage, mdbView, mdbMask, mdbIcon } from 'mdbvue';
 
 export default {
   name: 'app',
@@ -80,7 +80,7 @@ components:{
     markFake() {
       var updates = {};
       console.log("marked fake");
-      updates['0/status'] = "fake news";
+      updates['Incoming/-M3fAqVTTmCJSBzKchAD/status'] = "fake news";
       db.ref().update(
         updates
       )
@@ -90,15 +90,15 @@ components:{
 
   data: function () {
     return {
-      readtitle: '',
+      // readtitle: '',
       readnews: '',
       readstatus: ''
     };
   },
   created() {
-    db.ref('0/title').once('value', storedValue => this.readtitle = storedValue);
-    db.ref('0/news').once('value', storedValue => this.readnews = storedValue);
-    db.ref('0/status').once('value', storedValue => this.readstatus = storedValue);
+    db.ref('Incoming/-M3fAqVTTmCJSBzKchAD/userid').once('value', storedValue => this.readtitle = storedValue);
+    db.ref('Incoming/-M3fAqVTTmCJSBzKchAD/news').once('value', storedValue => this.readnews = storedValue);
+    db.ref('Incoming/-M3fAqVTTmCJSBzKchAD/status').once('value', storedValue => this.readstatus = storedValue);
 
   },
   

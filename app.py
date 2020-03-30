@@ -1,41 +1,75 @@
-from flask import Flask, request
+from flask import Flask, request, redirect
 from twilio.twiml.messaging_response import MessagingResponse
 from firebase import firebase
+from flask_cors import CORS
+from twilio.rest import Client
+import pyrebase
+
+config = {
+    "apiKey": "AIzaSyAEEO1frXfzyL6MCkRvgGz7qURfsTLajRc",
+    "authDomain" : "covid-19-fake-news-detector.firebaseapp.com",
+    "databaseURL" : "https://covid-19-fake-news-detector.firebaseio.com",
+    "projectId" : "covid-19-fake-news-detector",
+    "storageBucket" : "covid-19-fake-news-detector.appspot.com",
+    "messagingSenderId" : "401417810179",
+    "appId" : "1:401417810179:web:b5c7dac2f172bfdc11f936",
+    "measurementId" : "G-59YT063WPN"
+}
+
+fb = pyrebase.initialize_app(config)
+db = fb.database()
+
 
 app = Flask(__name__)
+app.config.from_object(__name__)
 
 firebase = firebase.FirebaseApplication("https://covid-19-fake-news-detector.firebaseio.com/", None)
 
 
+@app.route("/status", methods=['POST'])
+def sms_status(key):
+    update = firebase.get('/Incoming/'+key['name'],'status')
+    from_whatsapp_no = 'whatsapp:+14155238886'
+    to_whatsapp_no = 'whatsapp:+918923877613'
+    account = "ACa0b9328e73aae32408449525cf3e42c4"
+    token = "cdd6da1ea1baf8050d20005d0e1a74b0"
+    client = Client(account,token)
+    
+    return str(client.messages.create(body= update, from_ =from_whatsapp_no, to = to_whatsapp_no))
+
+
 @app.route("/sms", methods=['POST'])
 def sms_reply():
-
     # Fetch the message
+    usrid = request.form.get('From')
+    print(usrid)
+
+
     msg = request.form.get('Body')
-    print(msg)
 
     #json format for firebase
     data = {
-        "title": "Title 1",     
+        "userid": usrid,     
         "news": msg,
-        "status": "Nobody has flaged it till now"   
+        "status": "Wait, we are processing your request"   
     }
     print("coming")
-    
-    #Create db
-    create = firebase.post('/covid-19-fake-news-detector/Incoming', data)
-    print(create['name'])
 
+    #Create db
+    key = firebase.post('/Incoming', data)
+    print(key['name'])
 
     #read db
-    update = firebase.get('/covid-19-fake-news-detector/Incoming/'+create['name'],'status')
+    update = firebase.get('/Incoming/'+key['name'],'status')
     print(update)
 
     # Create reply
     resp = MessagingResponse()
     resp.message(update)
-
-    return str(resp)
+    return redirect("/status", code = 302)
+    # else:
+    #     default = "Wait, we are processing your request"
+    #     return (default)
 
 if __name__ == "__main__":
     app.run(debug=True)
