@@ -1,7 +1,7 @@
 from flask import Flask, request, redirect
 from twilio.twiml.messaging_response import MessagingResponse
 from firebase import firebase
-from flask_cors import CORS
+# from flask_cors import CORS
 from twilio.rest import Client
 import pyrebase
 
@@ -30,9 +30,9 @@ firebase = firebase.FirebaseApplication("https://covid-19-fake-news-detector.fir
 def sms_status(key):
     update = firebase.get('/Incoming/'+key['name'],'status')
     from_whatsapp_no = 'whatsapp:+14155238886'
-    to_whatsapp_no = 'whatsapp:+918923877613'
-    account = "ACa0b9328e73aae32408449525cf3e42c4"
-    token = "cdd6da1ea1baf8050d20005d0e1a74b0"
+    to_whatsapp_no = 'whatsapp:+9189********'
+    account = "ACa0b9328e73aae3240844*******"
+    token = "cdd6da1ea1baf8050d20005d*******"
     client = Client(account,token)
     
     return str(client.messages.create(body= update, from_ =from_whatsapp_no, to = to_whatsapp_no))
@@ -66,7 +66,7 @@ def sms_reply():
     # Create reply
     resp = MessagingResponse()
     resp.message(update)
-    return redirect("/status", code = 302)
+    return str(resp)
     # else:
     #     default = "Wait, we are processing your request"
     #     return (default)

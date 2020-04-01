@@ -1,28 +1,35 @@
 <template>
   <div id="app">
 
-    <div>
+    <div >
       <h3>Fake News Detector</h3>
-      <mdb-container>
-        <mdb-row>
-          <mdb-col sm="4">
-            <mdb-card dark>
-              <mdb-view hover>
-                <a href="#!">
-                  <mdb-card-image src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20%28131%29.jpg" alt="Card image cap"></mdb-card-image>
-                  <mdb-mask flex-center waves overlay="white-slight"></mdb-mask>
-                </a>
-              </mdb-view>
-              <mdb-card-body color="elegant" class="white-text">
-                <a class="activator mr-4"><mdb-icon icon="share-alt" /></a>
-                <mdb-card-title>asked by: {{readtitle}}</mdb-card-title>
-                <hr class="hr-light"/>
-                <mdbCardText class="font-small mb-3">{{readnews}}</mdbCardText>
-              </mdb-card-body>
-            </mdb-card>
-          </mdb-col>
-        </mdb-row>
-      </mdb-container>
+      <ul>
+        <!-- <li v-for="index in 10" :key="index"> -->
+          <mdb-container>
+            <mdb-row>
+              <mdb-col sm="4">
+                <mdb-card dark>
+                  <mdb-view hover>
+                    <a href="#!">
+                      <mdb-card-image src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20%28131%29.jpg" alt="Card image cap"></mdb-card-image>
+                      <mdb-mask flex-center waves overlay="white-slight"></mdb-mask>
+                    </a>
+                  </mdb-view>
+                  <mdb-card-body color="elegant" class="white-text">
+                    <a class="activator mr-4"><mdb-icon icon="share-alt" /></a>
+                    <mdb-card-title>asked by: {{readtitle}}</mdb-card-title>
+                    <hr class="hr-light"/>
+                    <mdbCardText class="font-small mb-3">{{readnews}}</mdbCardText>
+                    <!-- <mdbCardText class="font-small mb-3">{{Incoming[index].userid}}</mdbCardText> -->
+
+                  </mdb-card-body>
+                </mdb-card>
+              </mdb-col>
+            </mdb-row>
+          </mdb-container>
+        <!-- </li> -->
+      </ul>
+
       <ul>
       <button @click="markFake()">Fake news</button>
       </ul>
@@ -62,15 +69,9 @@ components:{
     mdbCol,
     mdbCard,
     mdbCardImage,
-    // mdbCardHeader,
     mdbCardBody,
     mdbCardTitle,
     mdbCardText,
-    // mdbCardFooter,
-    // mdbCardUp,
-    // mdbCardAvatar,
-    // mdbCardGroup,
-    // mdbBtn,
     mdbView,
     mdbMask,
     mdbIcon
@@ -90,7 +91,7 @@ components:{
 
   data: function () {
     return {
-      // readtitle: '',
+      readtitle: '',
       readnews: '',
       readstatus: ''
     };
@@ -99,7 +100,6 @@ components:{
     db.ref('Incoming/-M3fAqVTTmCJSBzKchAD/userid').once('value', storedValue => this.readtitle = storedValue);
     db.ref('Incoming/-M3fAqVTTmCJSBzKchAD/news').once('value', storedValue => this.readnews = storedValue);
     db.ref('Incoming/-M3fAqVTTmCJSBzKchAD/status').once('value', storedValue => this.readstatus = storedValue);
-
   },
   
 }
@@ -190,7 +190,6 @@ components:{
     left: 0;
     right: 0;
     bottom: 0;
-    /* background: url(assets/pattern.svg); */
     background-size: 35%;
     opacity: 0.1;
     z-index: -1;
