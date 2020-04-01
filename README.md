@@ -8,10 +8,10 @@ In initial stage we have to volunteer some individuals which will mark the relev
 
 ##There are basically following technologies to be used here:
 ---
-Framework used : vue.js
-Backend process: Flask
-Database: firebase
-ML model (not started till now)
+Framework used : vue.js,
+Backend process: Flask,
+Database: firebase,
+ML model (not started till now),
 Whatsapp business api
 
 ### Compiles and hot-reloads for front-end development
