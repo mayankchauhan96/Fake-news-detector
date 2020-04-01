@@ -7,7 +7,6 @@ Basically we building awhatsapp app which will help in getting client's query an
 In initial stage we have to volunteer some individuals which will mark the relevant flag against that news/post in front end web app. Later we are planning to automatically verify the media source with the help of ML models. This will also work for all other news topics as well.
 
 ##There are basically following technologies to be used here:
----
 Framework used : vue.js,
 Backend process: Flask,
 Database: firebase,
